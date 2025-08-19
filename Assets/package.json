@@ -1,0 +1,7 @@
+{
+	"description":"Undo redo for develop.",
+	"displayName":"Undo",
+	"name":"com.mgs.undo",
+	"unity":"2021.3",
+	"version":"1.0.0"	
+}
