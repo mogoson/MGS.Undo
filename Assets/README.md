@@ -6,10 +6,6 @@
 
 - Unity plugin for undo and redo develop.
 
-## Environment
-
-- Unity 2021.3 or above.
-
 ## Usage
 
 - Create a Global Instance for IUndoManager.
