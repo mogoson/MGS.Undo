@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.mgs.scriptdiemaker": {
-      "version": "file:D:/Programmer/Github/MGS.ScriptDiemaker/Assets",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.unity.collab-proxy": {
       "version": "2.3.1",
       "depth": 0,
