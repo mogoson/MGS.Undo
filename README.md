@@ -6,6 +6,14 @@
 
 - Unity plugin for undo and redo develop.
 
+## Install
+
+- Unity --> Window --> Package Manager --> "+" --> Add package from git URL...
+
+  ```text
+  https://github.com/mogoson/MGS.Undo.git?path=/Assets
+  ```
+
 ## Usage
 
 - Create a Global Instance for IUndoManager.
