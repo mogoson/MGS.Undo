@@ -20,6 +20,10 @@
 - Register a instance of IDoHandler (example: DoHandler) to the Global Instance when you need record to undo and redo.
 - Call the Undo or Redo method of Global Instance.
 
+## Samples
+
+- Unity --> Window --> Package Manager --> Packages-Mogoson --> Undo --> Samples.
+
 ------
 
 Copyright © 2025 Mogoson.	mogoson@outlook.com
