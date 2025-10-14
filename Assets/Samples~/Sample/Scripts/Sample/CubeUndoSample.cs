@@ -1,7 +1,7 @@
 /*************************************************************************
  *  Copyright (C) 2025 Mogoson. All rights reserved.
  *------------------------------------------------------------------------
- *  File         :  TestToggle.cs
+ *  File         :  CubeUndoSample.cs
  *  Description  :  Default.
  *------------------------------------------------------------------------
  *  Author       :  Mogoson
@@ -11,33 +11,25 @@
  *************************************************************************/
 
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MGS.Undo.Sample
 {
-    [RequireComponent(typeof(Toggle))]
-    public class TestToggle : MonoBehaviour
+    [RequireComponent(typeof(Renderer))]
+    public class CubeUndoSample : MonoBehaviour
     {
-        private Toggle toggle;
+        private new Renderer renderer;
 
         private void Awake()
         {
-            toggle = GetComponent<Toggle>();
-            toggle.onValueChanged.AddListener(Toggle_onValueChanged);
+            renderer = GetComponent<Renderer>();
         }
 
-        private void Toggle_onValueChanged(bool isOn)
+        private void OnMouseDown()
         {
-            void Undo()
-            {
-                toggle.SetIsOnWithoutNotify(!isOn);
-            }
-            void Redo()
-            {
-                toggle.SetIsOnWithoutNotify(isOn);
-            }
-            var handler = new DoHandler(Undo, Redo);
-            Global.UndoManager.Register(handler);
+            var oldColor = renderer.material.color;
+            var newColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
+            var handler = new DoHandler<Color>(oldColor, newColor, color => renderer.material.color = color);
+            Global.UndoManager.Todo(handler);
         }
     }
 }

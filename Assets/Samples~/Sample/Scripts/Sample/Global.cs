@@ -1,21 +1,24 @@
 /*************************************************************************
  *  Copyright (C) 2025 Mogoson. All rights reserved.
  *------------------------------------------------------------------------
- *  File         :  IDoHandler.cs
+ *  File         :  Global.cs
  *  Description  :  Default.
  *------------------------------------------------------------------------
  *  Author       :  Mogoson
  *  Version      :  1.0.0
- *  Date         :  2025/8/18
+ *  Date         :  2025/8/19
  *  Description  :  Initial development version.
  *************************************************************************/
 
-namespace MGS.Undo
+namespace MGS.Undo.Sample
 {
-    public interface IDoHandler
+    public sealed class Global
     {
-        void Undo();
+        public static IUndoManager UndoManager { get; }
 
-        void Redo();
+        static Global()
+        {
+            UndoManager = new UndoManager();
+        }
     }
 }

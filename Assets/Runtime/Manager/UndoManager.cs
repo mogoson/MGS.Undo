@@ -33,8 +33,9 @@ namespace MGS.Undo
             this.capacity = capacity;
         }
 
-        public virtual void Register(IDoHandler doHandler)
+        public virtual void Todo(IDoHandler doHandler)
         {
+            doHandler.Todo();
             PushToUndos(doHandler);
             ClearRedos();
         }
@@ -60,7 +61,7 @@ namespace MGS.Undo
                 return false;
             }
 
-            redo.Redo();
+            redo.Todo();
             PushToUndos(redo);
             return true;
         }

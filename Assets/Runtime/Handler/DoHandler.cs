@@ -14,25 +14,27 @@ using System;
 
 namespace MGS.Undo
 {
-    public class DoHandler : IDoHandler
+    public class DoHandler<T> : IDoHandler
     {
-        protected Action undo;
-        protected Action redo;
+        protected T oldValue;
+        protected T newValue;
+        protected Action<T> doAction;
 
-        public DoHandler(Action undo, Action redo)
+        public DoHandler(T oldValue, T newValue, Action<T> doAction)
         {
-            this.undo = undo;
-            this.redo = redo;
+            this.oldValue = oldValue;
+            this.newValue = newValue;
+            this.doAction = doAction;
+        }
+
+        public virtual void Todo()
+        {
+            doAction?.Invoke(newValue);
         }
 
         public virtual void Undo()
         {
-            undo?.Invoke();
-        }
-
-        public virtual void Redo()
-        {
-            redo?.Invoke();
+            doAction?.Invoke(oldValue);
         }
     }
 }

@@ -1,34 +1,21 @@
 /*************************************************************************
  *  Copyright (C) 2025 Mogoson. All rights reserved.
  *------------------------------------------------------------------------
- *  File         :  IUndoManager.cs
+ *  File         :  IDoHandler.cs
  *  Description  :  Default.
  *------------------------------------------------------------------------
  *  Author       :  Mogoson
  *  Version      :  1.0.0
- *  Date         :  2025/8/19
+ *  Date         :  2025/8/18
  *  Description  :  Initial development version.
  *************************************************************************/
 
-using System;
-
 namespace MGS.Undo
 {
-    public interface IUndoManager
+    public interface IDoHandler
     {
-        event Action<int> OnUndosChanged;
-        event Action<int> OnRedosChanged;
+        void Todo();
 
-        int UndosCount { get; }
-
-        int RedosCount { get; }
-
-        void Register(IDoHandler doHandler);
-
-        bool Undo();
-
-        bool Redo();
-
-        void Clear();
+        void Undo();
     }
 }

@@ -2,7 +2,7 @@
     "name": "MGS.Undo.Sample",
     "rootNamespace": "",
     "references": [
-        "GUID:cc479309003caaa46b24b38962671f52"
+        "MGS.Undo"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

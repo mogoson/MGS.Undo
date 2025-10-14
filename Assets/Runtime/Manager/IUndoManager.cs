@@ -1,7 +1,7 @@
 /*************************************************************************
  *  Copyright (C) 2025 Mogoson. All rights reserved.
  *------------------------------------------------------------------------
- *  File         :  Global.cs
+ *  File         :  IUndoManager.cs
  *  Description  :  Default.
  *------------------------------------------------------------------------
  *  Author       :  Mogoson
@@ -10,12 +10,25 @@
  *  Description  :  Initial development version.
  *************************************************************************/
 
-namespace MGS.Undo.Sample
-{
-    public sealed class Global
-    {
-        public static readonly IUndoManager UndoManager = new UndoManager();
+using System;
 
-        static Global() { }
+namespace MGS.Undo
+{
+    public interface IUndoManager
+    {
+        event Action<int> OnUndosChanged;
+        event Action<int> OnRedosChanged;
+
+        int UndosCount { get; }
+
+        int RedosCount { get; }
+
+        void Todo(IDoHandler doHandler);
+
+        bool Undo();
+
+        bool Redo();
+
+        void Clear();
     }
 }
