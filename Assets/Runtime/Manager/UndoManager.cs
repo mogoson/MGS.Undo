@@ -122,6 +122,11 @@ namespace MGS.Undo
 
         protected IDoHandler PopFromRedos()
         {
+            if (redos.Count == 0)
+            {
+                return null;
+            }
+
             var redo = redos.Pop();
             OnRedosChanged?.Invoke(redos.Count);
             return redo;
