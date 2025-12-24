@@ -7,3 +7,9 @@ All notable changes to this package will be documented in this file. The format 
 ### Release
 
 - Release as standard Unity package.
+
+## [1.1.0] - 2025-12-24
+
+### Release
+
+- Support GameObject Undo and Redo.

@@ -1,5 +1,5 @@
-/*************************************************************************
- *  Copyright (C) 2025 Mogoson. All rights reserved.
+﻿/*************************************************************************
+ *  Copyright © 2025 Mogoson. All rights reserved.
  *------------------------------------------------------------------------
  *  File         :  UndoMenu.cs
  *  Description  :  Default.
@@ -17,16 +17,16 @@ namespace MGS.Undo.Sample
 {
     public class UndoMenu : MonoBehaviour
     {
-        public Button undoBtn;
-        public Button redoBtn;
+        public Button btnUndo;
+        public Button btnRedo;
 
         private void Awake()
         {
             Global.UndoManager.OnUndosChanged += UndoManager_OnUndosChanged;
             Global.UndoManager.OnRedosChanged += UndoManager_OnRedosChanged;
 
-            undoBtn.onClick.AddListener(() => Global.UndoManager.Undo());
-            redoBtn.onClick.AddListener(() => Global.UndoManager.Redo());
+            btnUndo.onClick.AddListener(() => Global.UndoManager.Undo());
+            btnRedo.onClick.AddListener(() => Global.UndoManager.Redo());
         }
 
         private void OnDestroy()
@@ -37,12 +37,12 @@ namespace MGS.Undo.Sample
 
         private void UndoManager_OnUndosChanged(int count)
         {
-            undoBtn.interactable = count > 0;
+            btnUndo.interactable = count > 0;
         }
 
         private void UndoManager_OnRedosChanged(int count)
         {
-            redoBtn.interactable = count > 0;
+            btnRedo.interactable = count > 0;
         }
     }
 }

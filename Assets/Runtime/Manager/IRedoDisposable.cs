@@ -1,21 +1,18 @@
 /*************************************************************************
- *  Copyright (C) 2025 Mogoson. All rights reserved.
+ *  Copyright © 2025 Mogoson All rights reserved.
  *------------------------------------------------------------------------
- *  File         :  IDoHandler.cs
+ *  File         :  IRedoDisposable.cs
  *  Description  :  Default.
  *------------------------------------------------------------------------
  *  Author       :  Mogoson
  *  Version      :  1.0.0
- *  Date         :  2025/8/18
+ *  Date         :  12/23/2025
  *  Description  :  Initial development version.
  *************************************************************************/
 
+using System;
+
 namespace MGS.Undo
 {
-    public interface IDoHandler
-    {
-        void Todo();
-
-        void Undo();
-    }
+    public interface IRedoDisposable : IDisposable { }
 }

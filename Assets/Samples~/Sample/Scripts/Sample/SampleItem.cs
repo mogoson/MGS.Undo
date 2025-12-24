@@ -1,35 +1,37 @@
 /*************************************************************************
- *  Copyright (C) 2025 Mogoson. All rights reserved.
+ *  Copyright © 2025 Mogoson All rights reserved.
  *------------------------------------------------------------------------
- *  File         :  ToggleUndoSample.cs
+ *  File         :  SampleItem.cs
  *  Description  :  Default.
  *------------------------------------------------------------------------
  *  Author       :  Mogoson
  *  Version      :  1.0.0
- *  Date         :  2025/8/19
+ *  Date         :  12/20/2025
  *  Description  :  Initial development version.
  *************************************************************************/
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MGS.Undo.Sample
 {
-    [RequireComponent(typeof(Toggle))]
-    public class ToggleUndoSample : MonoBehaviour
+    public class SampleItem : MonoBehaviour
     {
-        private Toggle toggle;
+        public Button button;
+        public Image image;
+        public Text text;
+
+        public event Action OnClick;
 
         private void Awake()
         {
-            toggle = GetComponent<Toggle>();
-            toggle.onValueChanged.AddListener(Toggle_onValueChanged);
+            button.onClick.AddListener(() => OnClick?.Invoke());
         }
 
-        private void Toggle_onValueChanged(bool isOn)
+        public void Refresh(string text)
         {
-            var handler = new DoHandler<bool>(!isOn, isOn, toggle.SetIsOnWithoutNotify);
-            Global.UndoManager.Todo(handler);
+            this.text.text = text;
         }
     }
 }

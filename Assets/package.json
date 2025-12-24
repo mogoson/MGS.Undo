@@ -1,6 +1,6 @@
 {
     "name": "com.mgs.undo",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "displayName": "Undo",
     "description": "Undo Redo for develop",
     "unity": "2021.3",

@@ -1,5 +1,5 @@
-/*************************************************************************
- *  Copyright (C) 2025 Mogoson. All rights reserved.
+﻿/*************************************************************************
+ *  Copyright © 2025 Mogoson. All rights reserved.
  *------------------------------------------------------------------------
  *  File         :  UndoManager.cs
  *  Description  :  Default.
@@ -25,44 +25,49 @@ namespace MGS.Undo
         public int RedosCount { get { return redos.Count; } }
 
         protected uint capacity;
-        protected List<IDoHandler> undos = new();
-        protected Stack<IDoHandler> redos = new();
+        protected List<IUndoHandler> undos = new();
+        protected Stack<IUndoHandler> redos = new();
 
         public UndoManager(uint capacity = 10)
         {
             this.capacity = capacity;
         }
 
-        public virtual void Todo(IDoHandler doHandler)
+        public virtual void Todo(IUndoHandler handler)
         {
-            doHandler.Todo();
-            PushToUndos(doHandler);
+            handler.Redo();
+            Register(handler);
+        }
+
+        public virtual void Register(IUndoHandler handler)
+        {
+            PushToUndos(handler);
             ClearRedos();
         }
 
         public virtual bool Undo()
         {
-            var undo = PopFromUndos();
-            if (undo == null)
+            var handler = PopFromUndos();
+            if (handler == null)
             {
                 return false;
             }
 
-            undo.Undo();
-            PushToRedos(undo);
+            handler.Undo();
+            PushToRedos(handler);
             return true;
         }
 
         public virtual bool Redo()
         {
-            var redo = PopFromRedos();
-            if (redo == null)
+            var handler = PopFromRedos();
+            if (handler == null)
             {
                 return false;
             }
 
-            redo.Todo();
-            PushToUndos(redo);
+            handler.Redo();
+            PushToUndos(handler);
             return true;
         }
 
@@ -74,24 +79,38 @@ namespace MGS.Undo
 
         protected void ClearUndos()
         {
+            foreach (var handler in undos)
+            {
+                if (handler is IUndoDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
+            }
             undos.Clear();
             OnUndosChanged?.Invoke(undos.Count);
         }
 
         protected void ClearRedos()
         {
+            foreach (var handler in redos)
+            {
+                if (handler is IRedoDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
+            }
             redos.Clear();
             OnRedosChanged?.Invoke(redos.Count);
         }
 
-        protected void PushToUndos(IDoHandler doHandler)
+        protected void PushToUndos(IUndoHandler handler)
         {
-            undos.Add(doHandler);
+            undos.Add(handler);
             RequireUndosCapacity();
             OnUndosChanged?.Invoke(undos.Count);
         }
 
-        protected IDoHandler PopFromUndos()
+        protected IUndoHandler PopFromUndos()
         {
             if (undos.Count == 0)
             {
@@ -99,37 +118,42 @@ namespace MGS.Undo
             }
 
             var popIndex = undos.Count - 1;
-            var undo = undos[popIndex];
+            var handler = undos[popIndex];
 
             undos.RemoveAt(popIndex);
             OnUndosChanged?.Invoke(undos.Count);
-            return undo;
+            return handler;
         }
 
         protected void RequireUndosCapacity()
         {
             while (undos.Count > capacity)
             {
-                undos.RemoveAt(0);
+                var handler = undos[0];
+                if (handler is IUndoDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
+                undos.Remove(handler);
             }
         }
 
-        protected void PushToRedos(IDoHandler doHandler)
+        protected void PushToRedos(IUndoHandler handler)
         {
-            redos.Push(doHandler);
+            redos.Push(handler);
             OnRedosChanged?.Invoke(redos.Count);
         }
 
-        protected IDoHandler PopFromRedos()
+        protected IUndoHandler PopFromRedos()
         {
             if (redos.Count == 0)
             {
                 return null;
             }
 
-            var redo = redos.Pop();
+            var handler = redos.Pop();
             OnRedosChanged?.Invoke(redos.Count);
-            return redo;
+            return handler;
         }
     }
 }

@@ -17,7 +17,7 @@
 ## Usage
 
 - Create a Global Instance for IUndoManager.
-- Register a instance of IDoHandler (example: DoHandler) to the Global Instance when you need record to undo and redo.
+- Register a instance of IUndoHandler (example: UndoHandler) to the Global Instance of IUndoManager when you need record to undo and redo.
 - Call the Undo or Redo method of Global Instance.
 
 ## Samples
